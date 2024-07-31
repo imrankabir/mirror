@@ -11,7 +11,7 @@ body {
 }
 
 .container {
-    width: 60%;
+    width: 100%;
     border-radius: 10px;
     border: 10px double #369;
 }
