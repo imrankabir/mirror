@@ -7,7 +7,7 @@ body {
 
 .container {
     border-radius: 5px;
-    border: 10px double #369;
+    border: 10px double gold;
     width: calc(100vw - 20px);
     height: calc(100vh - 20px);
     width: calc(100svw - 20px);
@@ -17,5 +17,6 @@ body {
 video {
     width: 100%;
     height: 100%;
+    object-fit: cover;
     transform: scaleX(-1);
 }
