@@ -1,3 +1,6 @@
+const app = 'Mirror';
+const VISITS_KEY = 'mirror-visits';
+
 document.addEventListener('DOMContentLoaded', e => {
     const video = document.querySelector('#video');
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -13,6 +16,7 @@ document.addEventListener('DOMContentLoaded', e => {
         console.error('getUserMedia not supported by this browser.');
     }
 });
+
 const download = e => {
     const canvas = document.createElement('canvas');
     canvas.width = video.videoWidth;
@@ -26,6 +30,7 @@ const download = e => {
     a.download = `image-${new Date().getTime()}.png`;
     a.click();
 };
+
 document.querySelector('.download-btn').addEventListener('click', download);
 document.addEventListener('keydown', e => {
   switch (e.which) {
@@ -35,3 +40,60 @@ document.addEventListener('keydown', e => {
       break;
   }
 });
+
+const padTwoDigits = num => num.toString().padStart(2, "0");
+
+const formatDate = (date, dateDiveder = '-') => {
+  return (
+    [
+      date.getFullYear(),
+      padTwoDigits(date.getMonth() + 1),
+      padTwoDigits(date.getDate()),
+    ].join(dateDiveder) +
+    " " +
+    [
+      padTwoDigits(date.getHours()),
+      padTwoDigits(date.getMinutes()),
+      padTwoDigits(date.getSeconds()),
+    ].join(":")
+  );
+}
+
+async function getVisitorIP() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        return data.ip;
+    } catch (error) {
+        console.error('Error fetching IP address:', error);
+        return 'Unknown IP';
+    }
+}
+
+async function trackVisitor() {
+    const ip = await getVisitorIP();
+    const time = formatDate(new Date());
+    let visits = JSON.parse(localStorage.getItem(VISITS_KEY)) || [];
+    visits.push({ip, time, app});
+    localStorage.setItem(VISITS_KEY, JSON.stringify(visits));
+}
+
+async function persistVisits() {
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+  // headers.append('mode', 'no-cors');
+  const response = await fetch('https://enabled-humpback-lively.ngrok-free.app/save-visits.php', {
+    method: 'POST',
+    body: JSON.stringify(localStorage.getItem(VISITS_KEY)),
+    headers
+  });
+
+  if (response.ok === true && response.status === 200) {
+    console.log(response);
+    localStorage.setItem(VISITS_KEY, JSON.stringify([]));
+  }
+
+}
+
+trackVisitor();
+persistVisits();
