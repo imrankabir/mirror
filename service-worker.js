@@ -3,13 +3,13 @@ self.addEventListener('install', event => {
     caches.open('static-cache-v1').then(cache => {
       return cache.addAll([
         '/',
-        '/index.html',
-        '/style.css',
-        '/script.js',
-        '/favicon.png',
-        '/icon-192x192.png',
-        '/icon-512x512.png',
-        '/manifest.json',
+        'index.html',
+        'style.css',
+        'script.js',
+        'favicon.png',
+        'icon-192x192.png',
+        'icon-512x512.png',
+        'manifest.json',
       ]);
     })
   );
