@@ -40,3 +40,15 @@ video {
 body:hover .download-btn {
   display: block;
 }
+.install-button {
+  display: none;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 20px;
+  background: #007bff;
+}
+.install-button.show {
+  display: block;
+}
