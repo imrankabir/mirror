@@ -13,11 +13,11 @@ body {
 }
 .container {
     border-radius: 5px;
+    width: 100vw;
+    height: 100vh;
+    width: 100svw;
+    height: 100svh;
     border: 10px double gold;
-    width: calc(100vw - 20px);
-    height: calc(100vh - 20px);
-    width: calc(100svw - 20px);
-    height: calc(100svh - 20px);
 }
 video {
     width: 100%;
