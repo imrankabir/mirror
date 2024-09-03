@@ -44,7 +44,7 @@ document.addEventListener('keydown', e => {
 // trackVisitor();
 
 let deferredPrompt;
-const installButton = document.querySelector('.install-button');
+const installButton = document.querySelector('#install-button');
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', e => {
