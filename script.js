@@ -4,6 +4,7 @@ const VISITS_KEY = 'mirror-visits';
 document.addEventListener('DOMContentLoaded', e => {
     const video = document.querySelector('#video');
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
                 video.srcObject = stream;
